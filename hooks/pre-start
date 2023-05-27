@@ -1,0 +1,37 @@
+#!/bin/env bash
+
+# Unset WINEDLLOVERRIDES (permanent ones have been set in registry in post-install).
+export WINEDLLOVERRIDES=
+
+# Kill Logos.exe if already running.
+if pgrep 'Logos.exe' >/dev/null 2>&1; then
+    pkill 'Logos.exe'
+fi
+
+# Handle --version option.
+if [[ "${ACTION_ARGS[$1]}" == '--version' ]]; then
+    # Get Logos.exe version number from wine registry and exit.
+    ver=$(grep "AssemblyVersion" "${WINEPREFIX}/user.reg" | awk -F= '{print $2}' | tr -d '"')
+    if [[ -n "$ver" ]]; then
+        echo "$ver"
+        exit 0
+    else
+        echo "ERROR: Logos.exe version number not found."
+        exit 1
+    fi
+fi
+
+# Get Logos installation location.
+LOGOS_EXE=$(find "${WINEPREFIX}" -name Logos.exe | grep /Logos/Logos.exe)
+LOGOS_INSTALL_DIR=$(dirname "$LOGOS_EXE")
+# Handle alternative executables.
+EXE=$(basename "$RUN_EXE")
+
+if [[ "$EXE" == 'LogosIndexer.exe' ]]; then
+    # Get user ID and Language info for LogosIndexer.exe.
+    LOGOS_USER_ID=$(sed -r 's|.*"id":"([0-9a-z\.]{3,})",.*|\1|' "${LOGOS_INSTALL_DIR}/Users/UserMetadata")
+    LOGOS_USER_LANG=$(grep 'ResourceTitleLanguage' "${WINEPREFIX}/user.reg" | awk -F= '{print $2}' | tr -d '"')
+    export ACTION_ARGS=( "/user:$LOGOS_USER_ID" "/lang:$LOGOS_USER_LANG" )
+elif [[ "$EXE" == 'LogosUpdater.exe' ]]; then
+    echo "WARNING: Running LogosUpdater.exe is currently experimental."
+fi

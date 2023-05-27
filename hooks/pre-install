@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# Make wine use system language.
+if [[ -n "$LC_ALL" ]]; then
+    lang="$LC_ALL"
+elif [[ -n "$LANG" ]]; then
+    lang="$LANG"
+else
+    lang=C
+fi
+"$WINELOADER" reg add "HKCU\\Environment" /v LC_ALL /t REG_SZ /d "$lang" /f

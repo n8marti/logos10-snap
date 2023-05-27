@@ -1,0 +1,53 @@
+#!/bin/env bash
+
+# # Set DPI.
+# if [[ -z "$WINEDPI" ]]; then
+#     WINEDPI=108
+# fi
+# hex_dpi=$(printf '0x%.8X\n' "$WINEDPI")
+# "$WINELOADER" reg add "HKLM\\System\\CurrentControlSet\\Hardware Profiles\\Current\\Software\\Fonts" \
+#     /v "LogPixels" /t REG_DWORD /d "$hex_dpi" /f # sets winecfg resolution
+# "$WINELOADER" reg add "HKCU\\Control Panel\\Desktop" \
+#     /v "LogPixels" /t REG_DWORD /d "$hex_dpi" /f
+
+# Create minidump file with winedbg instead of pop-up window.
+"$WINELOADER" reg add "HKLM\\Software\\Microsoft\\Windows NT\\CurrentVersion\\AeDebug" \
+    /v Debugger /t REG_SZ /d 'winedbg --minidump %ld %ld' /f
+
+# Set permanent DLL overrides in registry.
+"$WINELOADER" reg add "HKCU\\Software\\Wine\\DllOverrides" \
+    /v mshtml /t REG_SZ /d '' /f
+
+# Confirm successful installation.
+LOGOS_EXE=$(find "${WINEPREFIX}" -name Logos.exe | grep /Logos/Logos.exe)
+if [[ ! -e "$LOGOS_EXE" ]]; then
+    echo "Installation failed."
+    exit 1
+fi
+
+# If ~/logos-data exists, ask user if they want to link to it.
+if [[ -n "$SNAP_NAME" ]]; then
+    home="$SNAP_REAL_HOME"
+else
+    home="$HOME"
+fi
+LOGOS_DATA="${home}/logos-data"
+LOGOS_INSTALL_DIR=$(dirname "$LOGOS_EXE")
+if [[ -d "$LOGOS_DATA" || -L "$LOGOS_DATA" ]]; then
+    yad --title="Use existing Logos data folder?" --width=400 --center --auto-kill \
+        --button=gtk-no:1 --button=gtk-yes:0 --borders=15 \
+        --text="You have a Logos data folder at $LOGOS_DATA. Do you want to link this installation to it?"
+    use_logos_data=$?
+    if [[ $use_logos_data -eq 0 ]]; then
+        # Symlink to $LOGOS_DATA.
+        content_dirs=( "Data" "Documents" "Users" )
+        for d in "${content_dirs[@]}"; do
+            rm -rf "${LOGOS_INSTALL_DIR:?}/${d}"
+            ln -s "$LOGOS_DATA/${d}" "${LOGOS_INSTALL_DIR}/${d}"
+        done
+    fi
+fi
+
+# Start Logos/Logos.exe on first run.
+echo "First run; finishing setup with ${LOGOS_INSTALL_DIR}/Logos.exe."
+export RUN_EXE="${LOGOS_INSTALL_DIR}/Logos.exe"

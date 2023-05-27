@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+if [[ -n $(list-procs | tail -n+2) ]]; then
+    # Try a SIGTERM first.
+    kill -15 $(list-procs | awk '{print $1}' | tail -n+2)
+    sleep 1 # wait for quick-terminating processes to end
+    if [[ -n $(list-procs | tail -n+2) ]]; then
+        sleep 4 # wait for long-terminating processes to end
+        if [[ -n $(list-procs | tail -n+2) ]]; then
+            # Try a SIGKILL next.
+            kill -9 $(list-procs | awk '{print $1}' | tail -n+2)
+        fi
+    fi
+fi

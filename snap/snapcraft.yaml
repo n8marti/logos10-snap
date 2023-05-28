@@ -2,7 +2,8 @@ name: logos10-unofficial
 title: Logos Bible Study App v10 (via WINE)
 # core20 ideas from https://github.com/mmtrt/notepad-plus-plus
 base: core20
-version: "25.2.0.0056" # matches installer version below
+# version: "25.2.0.0056" # matches installer version below
+adopt-info: version
 grade: devel # stable
 summary: An invaluable tool for anyone who wants to go deeper in their studies.
 description: |
@@ -103,6 +104,18 @@ plugs:
     default-provider: wine-platform-7-staging-core20
 
 parts:
+  version:
+    build-packages:
+      - xmlstarlet
+    plugin: nil
+    override-build: |
+      ver=$(curl -s "https://clientservices.logos.com/update/v1/feed/logos10/stable.xml \
+        | xmlstarlet select -N a="http://www.w3.org/2005/Atom" \
+          -t -m "//a:feed/a:entry" -v "logos:version" -n \
+        | sort -rn \
+        | head -n1)
+      snapcraftctl set-version "$ver"
+
   data:
     plugin: dump
     source: data/

@@ -109,7 +109,7 @@ parts:
       - xmlstarlet
     plugin: nil
     override-build: |
-      ver=$(curl -s "https://clientservices.logos.com/update/v1/feed/logos10/stable.xml \
+      ver=$(curl -s "https://clientservices.logos.com/update/v1/feed/logos10/stable.xml" \
         | xmlstarlet select -N a="http://www.w3.org/2005/Atom" \
           -t -m "//a:feed/a:entry" -v "logos:version" -n \
         | sort -rn \

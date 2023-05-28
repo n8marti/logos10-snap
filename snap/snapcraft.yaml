@@ -106,6 +106,7 @@ plugs:
 parts:
   version:
     build-packages:
+      - curl
       - xmlstarlet
     plugin: nil
     override-build: |

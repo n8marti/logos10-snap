@@ -2,9 +2,9 @@ name: logos10-unofficial
 title: Logos Bible Study App v10 (via WINE)
 # core20 ideas from https://github.com/mmtrt/notepad-plus-plus
 base: core20
-# version: "25.2.0.0056" # matches installer version below
 adopt-info: version
-grade: devel # stable
+# version: "25.2.0.0056" # matches installer version below
+# grade: devel # stable
 summary: An invaluable tool for anyone who wants to go deeper in their studies.
 description: |
   NOTE: Due to the way this app manages multiple windows it is incompatible with snap confinement policy.
@@ -116,6 +116,7 @@ parts:
         | sort -rn \
         | head -n1)
       snapcraftctl set-version "$ver"
+      snapcraftctl set-grade "devel" # stable
 
   debs:
     plugin: nil

@@ -32,7 +32,7 @@ apps:
     extensions: [gnome-3-38]
     command: bin/sommelier run-exe
     environment:
-      INSTALL_URL: ""
+      INSTALL_URL: "https://downloads.logoscdn.com/LBS10/Installer/${SNAP_VERSION}/Logos-x64.msi"
       INSTALL_FLAGS: "/passive"
       RUN_EXE: "C:/users/${USER}/AppData/Local/Logos/System/Logos.exe"
 

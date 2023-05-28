@@ -27,7 +27,7 @@ if [[ -e "${dl_dir}/Logos-x64.msi" ]]; then
         # Set INSTALL_EXE.
         export INSTALL_EXE="${dl_dir}/Logos-x64.msi"
     else
-        echo "${dl_dir}/Logos-x64.msi version ($ver_msi) does not match URL version ($ver_url_compact)."
+        echo "${dl_dir}/Logos-x64.msi version ($ver_msi) does not match URL version ($SNAP_VERSION)."
         echo "Downloading installer from URL."
     fi
 fi

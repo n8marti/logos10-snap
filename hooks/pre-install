@@ -20,7 +20,7 @@ if [[ -e "${dl_dir}/Logos-x64.msi" ]]; then
     #   - squeeze repeated '.'
     ver_url_compact="$(echo "$SNAP_VERSION" | sed -r 's/\.0+/./g' | tr -s '.')"
     if [[ "$ver_msi" == "$ver_url_compact" ]]; then
-        echo "${dl_dir}/Logos-x64.msi version ($ver_msi) matches URL version ($ver_url_compact)."
+        echo "${dl_dir}/Logos-x64.msi version ($ver_msi) matches URL version ($SNAP_VERSION)."
         echo "Installing from downloaded installer."
         # Unset INSTALL_URL from snapcraft.yaml.
         export INSTALL_URL=

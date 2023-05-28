@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Show relevant WINE and SayMore processes.
+# Show relevant WINE and .exe processes.
 
 proc_list=$(ps -ewwo pid,pcpu,pmem,args | grep -e PID -e wine -e '\.exe' | grep -v grep)
 if [[ $(echo "$proc_list" | wc -l) -lt 2 ]]; then

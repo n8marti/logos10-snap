@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# Kills all wine and .exe processes.
+
 if [[ -n $(list-procs | tail -n+2) ]]; then
     # Try a SIGTERM first.
     kill -15 $(list-procs | awk '{print $1}' | tail -n+2)

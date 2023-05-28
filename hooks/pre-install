@@ -9,3 +9,25 @@ else
     lang=C
 fi
 "$WINELOADER" reg add "HKCU\\Environment" /v LC_ALL /t REG_SZ /d "$lang" /f
+
+# Use installer in Downloads folder if correct version.
+dl_dir=$(xdg-user-dir DOWNLOAD)
+if [[ -e "${dl_dir}/Logos-x64.msi" ]]; then
+    # Check installer version.
+    ver_msi="$(file "${dl_dir}/Logos-x64.msi" | sed -r 's/.* Revision Number: .*\}([0-9\.]+);.*/\1/')"
+    # URL version =~ 25.2.0.0052, but MSI version =~ 25.2.52, so:
+    #   - strip leading 0s after '.'
+    #   - squeeze repeated '.'
+    ver_url_compact="$(echo "$SNAP_VERSION" | sed -r 's/\.0+/./g' | tr -s '.')"
+    if [[ "$ver_msi" == "$ver_url_compact" ]]; then
+        echo "${dl_dir}/Logos-x64.msi version ($ver_msi) matches URL version ($ver_url_compact)."
+        echo "Installing from downloaded installer."
+        # Unset INSTALL_URL from snapcraft.yaml.
+        export INSTALL_URL=
+        # Set INSTALL_EXE.
+        export INSTALL_EXE="${dl_dir}/Logos-x64.msi"
+    else
+        echo "${dl_dir}/Logos-x64.msi version ($ver_msi) does not match URL version ($ver_url_compact)."
+        echo "Downloading installer from URL."
+    fi
+fi

@@ -116,14 +116,6 @@ parts:
         | head -n1)
       snapcraftctl set-version "$ver"
 
-  data:
-    plugin: dump
-    source: data/
-    organize:
-      "*": data/
-    stage:
-      - data
-
   debs:
     plugin: nil
     stage-packages:

@@ -120,11 +120,11 @@ parts:
   debs:
     plugin: nil
     stage-packages:
-      # - file
+      - file
       - procps
     prime:
       - bin/kill
-      # - usr/bin/file
+      - usr/bin/file
       - usr/bin/pgrep
       - usr/bin/pkill
       - usr/bin/watch

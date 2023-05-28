@@ -121,6 +121,8 @@ parts:
     plugin: nil
     stage-packages:
       - file
+      - libmagic1
+      - libmagic-mgc
       - procps
     prime:
       - bin/kill
@@ -128,6 +130,8 @@ parts:
       - usr/bin/pgrep
       - usr/bin/pkill
       - usr/bin/watch
+      - usr/lib/file/magic.mgc
+      - usr/lib/x86_64-linux-gnu/libmagic.so.1*
 
   # This reverts changes from https://github.com/snapcore/snapcraft/pull/3586
   fix-fontconfig:

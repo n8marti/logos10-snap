@@ -6,7 +6,7 @@
 export APP_SHARE_DIR="$PWD"
 
 export TRICKS="corefonts tahoma fontsmooth=rgb d3dcompiler_47 win10"
-# export INSTALL_FLAGS="/passive"
+# export INSTALL_FLAGS="/passive" # don't show Logos installer; use default settings
 
 # Set WINE environment variables.
 # export WINEARCH="win32"
@@ -20,5 +20,6 @@ export WINETRICKS="/snap/wine-platform-runtime-core20/current/bin/winetricks"
 export WINEPREFIX="${APP_SHARE_DIR}/.wine"
 
 # Set wine-launch environment variables.
-export INSTALL_EXE="${APP_SHARE_DIR}/data/Logos-x64.msi"
+downloads="$(xdg-user-dir DOWNLOAD)"
+export INSTALL_EXE="${downloads}/Logos-x64.msi"
 export RUN_EXE="${WINEPREFIX}/drive_c/users/${USER}/AppData/Local/Logos/System/Logos.exe"

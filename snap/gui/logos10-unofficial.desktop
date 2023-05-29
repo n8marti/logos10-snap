@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Logos 10
-Comment= (snap via WINE)
+Comment=Logos Bible Software (snap via WINE)
 Exec=logos10-unofficial
 Icon=${SNAP}/meta/gui/logos10-unofficial.png
 Terminal=false

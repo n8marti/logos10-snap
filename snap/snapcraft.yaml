@@ -81,7 +81,7 @@ apps:
 
   wine:
     extensions: [gnome-3-38]
-    command: bin/sommelier "$WINELOADER"
+    command: bin/sommelier
 
   winecfg:
     extensions: [gnome-3-38]

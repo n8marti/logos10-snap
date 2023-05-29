@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+logos_system_dir="$(dirname "$RUN_EXE")"
+export RUN_EXE="${logos_system_dir}/LogosIndexer.exe"
+"${SNAP}/bin/sommelier" run-exe

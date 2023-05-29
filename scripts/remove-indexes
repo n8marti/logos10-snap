@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+logos_system_dir="$(dirname "$RUN_EXE")"
+logos_dir="$(dirname "$logos_system_dir")"
+if [[ "${1}" == 'all' ]]; then
+	rm -fv "${logos_dir}"/Data/*/BibleIndex/*
+	rm -fv "${logos_dir}"/Data/*/LibraryIndex/*
+	rm -fv "${logos_dir}"/Data/*/PersonalBookIndex/*
+	rm -fv "${logos_dir}"/Data/*/LibraryCatalog/*
+elif [[ "${1}" == 'library' ]]; then
+	rm -fv "${logos_dir}"/Data/*/LibraryCatalog/*
+fi

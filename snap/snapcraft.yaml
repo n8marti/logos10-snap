@@ -37,49 +37,48 @@ apps:
       RUN_EXE: "C:/users/${USER}/AppData/Local/Logos/System/Logos.exe"
 
   init:
-    # extensions: [gnome]
     extensions: [gnome-3-38]
     command: bin/sommelier
     environment:
       INIT: '1'
 
+  indexing:
+    extensions: [gnome-3-38]
+    command: bin/run-indexer
+
   kill-logos:
-    # extensions: [gnome]
     extensions: [gnome-3-38]
     command: bin/kill-main-app
 
   kill-procs:
-    # extensions: [gnome]
     extensions: [gnome-3-38]
     command: bin/kill-procs
 
   list-procs:
-    # extensions: [gnome]
     extensions: [gnome-3-38]
     command: bin/list-procs
   
   watch-procs:
-    # extensions: [gnome]
     extensions: [gnome-3-38]
     command: bin/watch-procs
 
+  remove-all-index:
+    extensions: [gnome-3-38]
+    command: bin/remove-indexes all
+
+  remove-library-catalog:
+    extensions: [gnome-3-38]
+    command: bin/remove-indexes library
+
   remove-wine-prefix:
-    # extensions: [gnome]
     extensions: [gnome-3-38]
     command: bin/sommelier winetricks annihilate
 
-  wine:
-    # extensions: [gnome]
-    extensions: [gnome-3-38]
-    command: bin/sommelier $WINELOADER
-
   winecfg:
-    # extensions: [gnome]
     extensions: [gnome-3-38]
     command: bin/sommelier winecfg
 
   winetricks:
-    # extensions: [gnome]
     extensions: [gnome-3-38]
     command: bin/sommelier winetricks
 

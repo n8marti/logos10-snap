@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-logos_system_dir="$(dirname "$RUN_EXE")"
-logos_dir="$(dirname "$logos_system_dir")"
+logos_exe="$(find "$SNAP_USER_COMMON" -name Logos.exe | grep Logos/Logos.exe)"
+logos_dir="$(dirname "$logos_exe")"
 if [[ "${1}" == 'all' ]]; then
 	rm -fv "${logos_dir}"/Data/*/BibleIndex/*
 	rm -fv "${logos_dir}"/Data/*/LibraryIndex/*

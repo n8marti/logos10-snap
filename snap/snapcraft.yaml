@@ -28,7 +28,6 @@ environment:
 
 apps:
   logos10-unofficial:
-    # extensions: [gnome]
     extensions: [gnome-3-38]
     command: bin/sommelier run-exe
     environment:
@@ -42,9 +41,11 @@ apps:
     environment:
       INIT: '1'
 
-  indexing:
+  indexer:
     extensions: [gnome-3-38]
-    command: bin/run-indexer
+    command: bin/sommelier run-exe
+    environment:
+      RUN_EXE: "C:/users/${USER}/AppData/Local/Logos/System/LogosIndexer.exe"
 
   kill-logos:
     extensions: [gnome-3-38]
@@ -62,11 +63,11 @@ apps:
     extensions: [gnome-3-38]
     command: bin/watch-procs
 
-  remove-all-index:
+  remove-all-indexes:
     extensions: [gnome-3-38]
     command: bin/remove-indexes all
 
-  remove-library-catalog:
+  remove-library-index:
     extensions: [gnome-3-38]
     command: bin/remove-indexes library
 

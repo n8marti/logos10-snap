@@ -18,6 +18,10 @@
 "$WINELOADER" reg add "HKCU\\Software\\Wine\\DllOverrides" \
     /v mshtml /t REG_SZ /d '' /f
 
+# Install Media Foundation DLLs from data dir.
+#   NOTE: Could also consider "mf" from winetricks, but it involves downloading a 500MB+ win update.
+"${SNAP}/data/mf-install-1.0/mf-install.sh"
+
 # Confirm successful installation.
 LOGOS_EXE=$(find "${WINEPREFIX}" -name Logos.exe | grep /Logos/Logos.exe)
 if [[ ! -e "$LOGOS_EXE" ]]; then

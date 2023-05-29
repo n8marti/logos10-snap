@@ -75,6 +75,14 @@ apps:
     extensions: [gnome-3-38]
     command: bin/sommelier winetricks annihilate
 
+  regedit:
+    extensions: [gnome-3-38]
+    command: bin/sommelier regedit
+
+  wine:
+    extensions: [gnome-3-38]
+    command: bin/sommelier "$WINELOADER"
+
   winecfg:
     extensions: [gnome-3-38]
     command: bin/sommelier winecfg
@@ -117,6 +125,14 @@ parts:
         | head -n1)
       snapcraftctl set-version "$ver"
       snapcraftctl set-grade "devel" # stable
+
+  data:
+    plugin: dump
+    source: data/
+    organize:
+      "*": data/
+    stage:
+      - data
 
   debs:
     plugin: nil

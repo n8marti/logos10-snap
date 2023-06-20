@@ -4,9 +4,12 @@ logos_exe="$(find "$SNAP_USER_COMMON" -name Logos.exe | grep Logos/Logos.exe)"
 logos_dir="$(dirname "$logos_exe")"
 if [[ "${1}" == 'all' ]]; then
 	rm -fv "${logos_dir}"/Data/*/BibleIndex/*
+	rm -fv "${logos_dir}"/Data/*/LibraryCatalog/*
 	rm -fv "${logos_dir}"/Data/*/LibraryIndex/*
 	rm -fv "${logos_dir}"/Data/*/PersonalBookIndex/*
-	rm -fv "${logos_dir}"/Data/*/LibraryCatalog/*
-elif [[ "${1}" == 'library' ]]; then
-	rm -fv "${logos_dir}"/Data/*/LibraryCatalog/*
+elif find "${logos_dir}"/Data/*/ -type d -name "${1}" >/dev/null; then
+	rm -fv "${logos_dir}"/Data/*/"${1}"/*
+else
+	echo "Usage: $0 all|BibleIndex|LibraryCatalog|LibraryIndex|PersonalBookIndex"
+	exit 1
 fi

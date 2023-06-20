@@ -69,7 +69,7 @@ apps:
 
   remove-library-index:
     extensions: [gnome-3-38]
-    command: bin/remove-indexes library
+    command: bin/remove-indexes LibraryIndex
 
   remove-wine-prefix:
     extensions: [gnome-3-38]

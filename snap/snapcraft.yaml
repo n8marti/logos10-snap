@@ -10,8 +10,12 @@ description: |
   NOTE: Due to the way this app manages multiple windows it is incompatible with snap confinement policy.
   Until a solution is found the snap needs to be installed with the '--devmode' flag to work properly. So,
   for the beta release:
-  
+
   `sudo snap install logos10-unofficial --devmode --beta`
+
+  Similarly, updates can only be installed manually:
+
+  `sudo snap refresh logos10-unofficial --devmode --beta`
 
   The Logos Bible Study app contains a powerful Bible study and sermon prep platform that allows you to study Scripture and consult commentaries, devotionals, Bible dictionaries, and more—all from your computer, tablet, or phone.
 confinement: strict # devmode

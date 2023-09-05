@@ -34,6 +34,8 @@ environment:
   WINEDLLOVERRIDES: "mscoree=;mshtml=" # Prevent pop-ups about Wine Mono and Wine Gecko
 
 layout:
+  # Workaround for wine-runtime having incorrect path for yad.
+  # Ref: https://github.com/mmtrt/wine-platform-runtime-core20-snap/issues/1
   $SNAP/usr/bin/yad:
     symlink: $SNAP/wine-runtime/usr/bin/yad
 

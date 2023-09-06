@@ -22,7 +22,7 @@ if [[ "${ACTION_ARGS[$1]}" == '--version' ]]; then
 fi
 
 # Get Logos installation location.
-LOGOS_EXE=$(find "${WINEPREFIX}" -name Logos.exe | grep /Logos/Logos.exe)
+LOGOS_EXE=$(find "$WINEPREFIX" -wholename '*/Logos/Logos.exe')
 LOGOS_INSTALL_DIR=$(dirname "$LOGOS_EXE")
 # Handle alternative executables.
 EXE=$(basename "$RUN_EXE")

@@ -28,23 +28,18 @@ architectures:
   - amd64
 
 environment:
+  LOGOS_VERSION: $SNAP_VERSION
   # SOMMELIER_NO_THEME: "true" # avoid crash b/c of Light theme
   SYSTEM_WGETRC: $SNAP/wine-runtime/etc/wgetrc
   TRICKS: "corefonts tahoma fontsmooth=rgb d3dcompiler_47 win10"
   WINEDLLOVERRIDES: "mscoree=;mshtml=" # Prevent pop-ups about Wine Mono and Wine Gecko
-
-layout:
-  # Workaround for wine-runtime having incorrect path for yad.
-  # Ref: https://github.com/mmtrt/wine-platform-runtime-core20-snap/issues/1
-  $SNAP/usr/bin/yad:
-    symlink: $SNAP/wine-runtime/usr/bin/yad
 
 apps:
   logos10-unofficial:
     extensions: [gnome-3-38]
     command: bin/sommelier run-exe
     environment:
-      INSTALL_URL: "https://downloads.logoscdn.com/LBS10/Installer/${SNAP_VERSION}/Logos-x64.msi"
+      INSTALL_URL: "https://downloads.logoscdn.com/LBS10/Installer/${LOGOS_VERSION}/Logos-x64.msi"
       INSTALL_FLAGS: "/passive"
       RUN_EXE: "C:/users/${USER}/AppData/Local/Logos/System/Logos.exe"
 

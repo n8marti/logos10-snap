@@ -31,7 +31,7 @@ environment:
   LOGOS_VERSION: $SNAP_VERSION
   # SOMMELIER_NO_THEME: "true" # avoid crash b/c of Light theme
   SYSTEM_WGETRC: $SNAP/wine-runtime/etc/wgetrc
-  TRICKS: "corefonts tahoma fontsmooth=rgb d3dcompiler_47 win10"
+  TRICKS: "win10"
   WINEDLLOVERRIDES: "mscoree=;mshtml=" # Prevent pop-ups about Wine Mono and Wine Gecko
 
 apps:

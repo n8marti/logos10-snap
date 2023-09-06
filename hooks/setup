@@ -1,25 +1,30 @@
 #!/bin/env bash
 
-### This is sourced by wine-launch/launch-app.sh. It serves the same purpose as sommelier' snapcraft.yaml.
-# Ref: https://github.com/ferion11/LogosLinuxInstaller/blob/master/LogosLinuxInstaller.sh
+### This is sourced by wine-launch/launch-app.sh. It serves the same purpose as sommelier's snapcraft.yaml.
+# Ref:
+#   https://appdb.winehq.org/objectManager.php?sClass=version&iId=41116
+#   https://github.com/ferion11/LogosLinuxInstaller/blob/master/LogosLinuxInstaller.sh
+
 
 export APP_SHARE_DIR="$PWD"
+downloads="$(xdg-user-dir DOWNLOAD)"
+TMPDIR="$downloads"
+export TMPDIR # needed for installer download destination; otherwise provided by snap
 
-export TRICKS="corefonts tahoma fontsmooth=rgb d3dcompiler_47 win10"
-# export INSTALL_FLAGS="/passive" # don't show Logos installer; use default settings
+# export TRICKS="fontsmooth=rgb win10"
+export TRICKS="win10"
+export INSTALL_FLAGS="/passive" # don't show Logos installer; use default settings
 
 # Set WINE environment variables.
-# export WINEARCH="win32"
 export WINEARCH="win64" # default for sommelier
 export WINEDLLOVERRIDES="$WINEDLLOVERRIDES;mscoree=;mshtml="
 # export WINELOADER="/snap/wine-platform-7-stable-core20/current/opt/wine-stable/bin/wine" # Logos won't start
 export WINELOADER="/snap/wine-platform-7-staging-core20/current/opt/wine-staging/bin/wine"
+# export WINELOADER64="/snap/wine-platform-7-staging-core20/current/opt/wine-staging/bin/wine64"
 # export WINELOADER="/opt/wine-stable/bin/wine" # wine-8-stable # Logos won't start
 export WINETRICKS="/snap/wine-platform-runtime-core20/current/bin/winetricks"
-# export WINETRICKS="/usr/bin/winetricks"
 export WINEPREFIX="${APP_SHARE_DIR}/.wine"
 
 # Set wine-launch environment variables.
-downloads="$(xdg-user-dir DOWNLOAD)"
 export INSTALL_EXE="${downloads}/Logos-x64.msi"
 export RUN_EXE="${WINEPREFIX}/drive_c/users/${USER}/AppData/Local/Logos/System/Logos.exe"

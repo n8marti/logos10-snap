@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+keep=
+if [[ $1 == '-k' || $1 == '--keep' ]]; then
+    keep=YES
+fi
+
+# Get latest Logos 10 version and installer link on-the-fly.
+logos_version=$(curl -s "https://clientservices.logos.com/update/v1/feed/logos10/stable.xml" \
+    | xmlstarlet select -N a="http://www.w3.org/2005/Atom" \
+    -t -m "//a:feed/a:entry" -v "logos:version" -n | sort -rn | head -n1)
+download_url="https://downloads.logoscdn.com/LBS10/Installer/${logos_version}/Logos-x64.msi"
+
+read -p "Download Logos-x64.msi v${logos_version}? [Y/n]: " ans
+if [[ -z "$ans" || "${ans,,}" == 'y' ]]; then
+    aria2c -x10 "$download_url" -d "$(xdg-user-dir DOWNLOAD)"
+fi

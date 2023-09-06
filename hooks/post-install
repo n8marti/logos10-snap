@@ -19,11 +19,19 @@
     /v mshtml /t REG_SZ /d '' /f
 
 # Install Media Foundation DLLs from data dir.
-#   NOTE: Could also consider "mf" from winetricks, but it involves downloading a 500MB+ win update.
-"${SNAP}/data/mf-install-1.0/mf-install.sh"
+if [[ -n "$SNAP" ]]; then
+    # NOTE: Could also consider "mf" from winetricks, but it involves downloading a 500MB+ win update.
+    #   Also, winetricks mf only seems to install mf.dll.
+    "${SNAP}/data/install-mf-files.sh"
+elif [[ -d "${APP_SHARE_DIR}/data" ]]; then
+    "${APP_SHARE_DIR}/data/install-mf-files.sh"
+else
+    echo "Error: No available mf-install.sh script."
+    exit 1
+fi
 
 # Confirm successful installation.
-LOGOS_EXE=$(find "${WINEPREFIX}" -name Logos.exe | grep /Logos/Logos.exe)
+LOGOS_EXE=$(find "$WINEPREFIX" -wholename '*/Logos/Logos.exe')
 if [[ ! -e "$LOGOS_EXE" ]]; then
     echo "Installation failed."
     exit 1

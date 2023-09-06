@@ -1,8 +1,6 @@
 # logos10-snap
 
-## Troubleshooting
-
-### System.AccessViolationException
+## System.AccessViolationException
 
 If Logos crashes when starting, it may be due to a corrupted Library index. To confirm
 you can start it from a terminal and see if you see this error near the end of the output:

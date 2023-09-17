@@ -86,3 +86,25 @@ regsvr32 : DLL « msmpeg2vdec.dll » enregistrée avec succès
 ```
 
 So msvproc.dll still fails to register and is still not found at runtime. Why?
+
+## Updates
+
+### Application
+
+Logos has a self-update mechanism whereby it downloads the appication update's
+installer along with Resource updates. There is no known way to block the
+download of the update installer.
+
+A record of updates can be found in `Logos/Data/<user>/UpdateManager/Updates.db`.
+Using an SQLite db browser (e.g. `snap install sqlitebrowser`) you can see all
+Resource and Application updates listed in the "Updates" table. If you filter
+the "Source" column with "Application", you will see a list of all downloaded
+application installers, their download dates, and their installation dates, if
+any.
+
+However, when Logos 27.3.0.26 attempted to upgrade to 28.0.0.34 the installer
+was successfully downloaded and supposedly successfuly installed, even though
+the installer's files still reside in a `Logos/Pending` folder and never got
+moved into the `Logos/System` folder. This is good, since v28+ seems to be
+incompatible with wine-staging 7.22, which is the version of WINE use by the
+snap package.

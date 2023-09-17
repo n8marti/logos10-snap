@@ -17,7 +17,7 @@ export INSTALL_FLAGS="/passive" # don't show Logos installer; use default settin
 
 # Set WINE environment variables.
 export WINEARCH="win64" # default for sommelier
-export WINEDLLOVERRIDES="$WINEDLLOVERRIDES;mscoree=;mshtml="
+export WINEDLLOVERRIDES="$WINEDLLOVERRIDES;mscoree=;mshtml=;winemenubuilder.exe="
 # export WINELOADER="/snap/wine-platform-7-stable-core20/current/opt/wine-stable/bin/wine" # Logos won't start
 export WINELOADER="/snap/wine-platform-7-staging-core20/current/opt/wine-staging/bin/wine"
 # export WINELOADER64="/snap/wine-platform-7-staging-core20/current/opt/wine-staging/bin/wine64"
@@ -26,5 +26,6 @@ export WINETRICKS="/snap/wine-platform-runtime-core20/current/bin/winetricks"
 export WINEPREFIX="${APP_SHARE_DIR}/.wine"
 
 # Set wine-launch environment variables.
+export LOGOS_VERSION='27.3.0.0026'
 export INSTALL_EXE="${downloads}/Logos-x64.msi"
 export RUN_EXE="${WINEPREFIX}/drive_c/users/${USER}/AppData/Local/Logos/System/Logos.exe"

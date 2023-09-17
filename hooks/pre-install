@@ -26,9 +26,13 @@ if [[ -e "${dl_dir}/Logos-x64.msi" ]]; then
     # Check installer version.
     ver_msi="$(file "${dl_dir}/Logos-x64.msi" | sed -r 's/.* Revision Number: .*\}([0-9\.]+);.*/\1/')"
     # URL version =~ 25.2.0.0052, but MSI version =~ 25.2.52, so:
-    #   - strip leading 0s after '.'
-    #   - squeeze repeated '.'
-    ver_url_compact="$(echo "$LOGOS_VERSION" | sed -r 's/\.0+/./g' | tr -s '.')"
+    #   - ignore 3rd field '.0'
+    #   - strip leading 0s in 4th field
+    v_major="$(echo "$LOGOS_VERSION" | awk -F'.' '{print $1}')"
+    v_minor="$(echo "$LOGOS_VERSION" | awk -F'.' '{print $2}')"
+    # v_extra="$(echo "$LOGOS_VERSION" | awk -F'.' '{print $3}')" # unused field?
+    v_patch="$(echo "$LOGOS_VERSION" | awk -F'.' '{print $4}' | sed -r 's/^0*//')" # remove leading 0s
+    ver_url_compact="${v_major}.${v_minor}.${v_patch}"
     if [[ "$ver_msi" == "$ver_url_compact" ]]; then
         echo "${dl_dir}/Logos-x64.msi version ($ver_msi) matches URL version ($LOGOS_VERSION)."
         echo "Installing from downloaded installer."
